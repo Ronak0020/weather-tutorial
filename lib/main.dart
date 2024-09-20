@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:weatherapp_piyush/pages/home_page.dart';
+// import 'package:weatherapp_piyush/pages/home_page.dart';
+import 'package:weatherapp_piyush/pages/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: "Gilroy"
       ),
-      home: const HomePage(),
+      home: const SplashPage(),
     );
   }
 }

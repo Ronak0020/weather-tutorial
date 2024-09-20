@@ -53,6 +53,15 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: Text(
+                          controller.weatherData?.location?.name ?? "...",
+                          style: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w900),
+                          textAlign: TextAlign.right,
+                        ),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Text(
                           "${controller.weatherData?.current?.tempC ?? "NO"}°C",
                           style: const TextStyle(
                               fontSize: 64,
@@ -66,8 +75,7 @@ class _HomePageState extends State<HomePage> {
                         child: Text(
                           "Real Feel ${controller.weatherData?.current?.feelslikeC ?? "NO"}°C",
                           style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold),
+                              fontSize: 16, fontWeight: FontWeight.bold),
                           textAlign: TextAlign.right,
                         ),
                       ),
@@ -214,20 +222,25 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("10 Days Forecast", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                    const Text("10 Days Forecast",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold)),
                     ListView.separated(
                         padding: const EdgeInsets.all(0),
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount:
-                            (controller.weatherData?.forecast?.forecastday ?? [])
+                            (controller.weatherData?.forecast?.forecastday ??
+                                    [])
                                 .length,
                         separatorBuilder: (context, index) {
-                          return Divider(color: Colors.grey.shade800,);
+                          return Divider(
+                            color: Colors.grey.shade800,
+                          );
                         },
                         itemBuilder: (context, index) {
-                          final day =
-                              controller.weatherData!.forecast!.forecastday![index];
+                          final day = controller
+                              .weatherData!.forecast!.forecastday![index];
                           return Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -239,13 +252,24 @@ class _HomePageState extends State<HomePage> {
                               ),
                               Image.network(
                                   "https:${controller.weatherData?.forecast?.forecastday?[0].hour?[index].condition?.icon ?? "//cdn-icons-png.flaticon.com/512/5726/5726775.png"}"),
-                              Text(
-                                  "${day.day!.maxtempC!.round()}°", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                              Container(height: 1, width: 30, color: Colors.grey.shade600),
-                              Text(
-                                  "${day.day!.mintempC!.round()}°", style: TextStyle(fontSize: 13, color: Colors.grey.shade600, fontWeight: FontWeight.bold)),
-                              Text(
-                                  day.day!.condition!.text!, style: TextStyle(fontSize: 14, color: Colors.grey.shade600, fontWeight: FontWeight.bold)),
+                              Text("${day.day!.maxtempC!.round()}°",
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold)),
+                              Container(
+                                  height: 1,
+                                  width: 30,
+                                  color: Colors.grey.shade600),
+                              Text("${day.day!.mintempC!.round()}°",
+                                  style: TextStyle(
+                                      fontSize: 13,
+                                      color: Colors.grey.shade600,
+                                      fontWeight: FontWeight.bold)),
+                              Text(day.day!.condition!.text!,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey.shade600,
+                                      fontWeight: FontWeight.bold)),
                             ],
                           );
                         }),
@@ -257,21 +281,32 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        decoration: const BoxDecoration(
-            color: Color(0xFF212325),
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(50), topRight: Radius.circular(50))),
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Icon(Icons.sunny, size: 30),
-            Icon(Icons.compass_calibration, size: 30),
-            Icon(Icons.emoji_emotions, size: 30)
-          ],
-        ),
+      // bottomNavigationBar: Container(
+      //   width: MediaQuery.of(context).size.width,
+      //   padding: const EdgeInsets.symmetric(vertical: 10),
+      //   decoration: const BoxDecoration(
+      //       color: Color(0xFF212325),
+      //       borderRadius: BorderRadius.only(
+      //           topLeft: Radius.circular(50), topRight: Radius.circular(50))),
+      //   child: const Row(
+      //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //     children: [
+      //       Icon(Icons.sunny, size: 30),
+      //       Icon(Icons.compass_calibration, size: 30),
+      //       Icon(Icons.emoji_emotions, size: 30)
+      //     ],
+      //   ),
+      // ),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.grey.shade700,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.sunny, size: 30), label: "sunny"),
+          BottomNavigationBarItem(icon: Icon(Icons.compass_calibration, size: 30), label: "compass"),
+          BottomNavigationBarItem(icon: Icon(Icons.emoji_emotions, size: 30), label: "emotions"),
+        ],
       ),
     );
   }
