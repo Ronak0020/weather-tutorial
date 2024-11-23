@@ -5,7 +5,7 @@ import 'package:weatherapp_piyush/models/weather_data_model/weather_data_model.d
 
 class HomePageController extends GetxController {
   final Dio dio = Dio();
-  final String apiKey = "88d43b3b3f3e4135ae085629240709";
+  final String apiKey = "";
   final _weatherData = Rxn<WeatherDataModel>();
   final _position = Rxn<Position>();
 
